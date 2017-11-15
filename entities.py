@@ -12,11 +12,12 @@ class Entity(object):
 
 
 class Monster(Entity):
-    def __init__(self, x, y):
+    def __init__(self, x, y, hp):
         self.dead = False
+        self.char = 'M'
         self.x = x
         self.y = y
-        self.char = 'M'
+        self.hp = hp
 
     def followPlayer(self, player):
         (playerX, playerY) = player.getPos()

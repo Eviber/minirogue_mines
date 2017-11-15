@@ -16,11 +16,12 @@ class Env(object):
                     "######################################"]
         self.scr = stdscr
         self.player = Player()
-        self.monster = Monster(10, 10)
+        self.monster = Monster(10, 10, 2)
 
 
     def finishTurn(self):
-        self.monster.followPlayer(self.player)
+        if self.monster.dead == False:
+            self.monster.followPlayer(self.player)
 
     def display(self):
         self.scr.erase()
@@ -31,7 +32,8 @@ class Env(object):
 
         # affiche le joueur et les ennemis
         self.player.display(self.scr)
-        self.monster.display(self.scr)
+        if self.monster.dead == False:
+            self.monster.display(self.scr)
 
     def checkInput(self, c):
         action = [curses.KEY_UP,
