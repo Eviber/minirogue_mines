@@ -40,7 +40,7 @@ class Env(object):
 
     def finishTurn(self):
         if self.monster.dead == False:
-            self.monster.followPlayer(self.player)
+            self.monster.followPlayer(self)
 
     def display(self):
         self.scr.erase()

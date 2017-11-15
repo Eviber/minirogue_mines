@@ -26,7 +26,8 @@ class Monster(Entity):
         self.y = y
         self.hp = hp
 
-    def followPlayer(self, player):
+    def followPlayer(self, env):
+        player = env.player
         (playerX, playerY) = player.getPos()
 
         deltaX = abs(playerX - self.x)
