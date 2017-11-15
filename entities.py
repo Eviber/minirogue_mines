@@ -29,9 +29,10 @@ class Monster(Entity):
     def followPlayer(self, env):
         player = env.player
         (playerX, playerY) = player.getPos()
+        (x, y) = (self.x, self.y)
 
-        deltaX = abs(playerX - self.x)
-        deltaY = abs(playerY - self.y)
+        deltaX = abs(playerX - x)
+        deltaY = abs(playerY - y)
 
         if min(deltaX, deltaY) == 0 and max(deltaX, deltaY) <= 1:
             # si le monstre est cote a cote avec le joueur, il le tape
@@ -41,15 +42,18 @@ class Monster(Entity):
             if deltaX > deltaY:
                 # si le joueur est plus eloigne sur l'axe y, il se rapproche
                 # d'abord dans cette direction
-                if playerX > self.x:
-                    self.x += 1
+                if playerX > x:
+                    x += 1
                 else:
-                    self.x -= 1
+                    x -= 1
             else:
-                if playerY > self.y:
-                    self.y += 1
+                if playerY > y:
+                    y += 1
                 else:
-                    self.y -= 1
+                    y -= 1
+
+            if env.map[y][x] != '#' and env.map[y][x] != ' ':
+                self.setPos(x, y)
 
 
     def die(self):

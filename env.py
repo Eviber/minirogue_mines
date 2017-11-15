@@ -35,7 +35,7 @@ class Env(object):
                     ]
         self.scr = stdscr
         self.player = Player()
-        self.monster = Monster(10, 10, 2)
+        self.monster = Monster(1, 1, 2)
 
 
     def finishTurn(self):
@@ -70,7 +70,7 @@ class Env(object):
                 newx -= 1
             elif c == curses.KEY_RIGHT:
                 newx += 1
-            if (newx, newy) == self.monster.getPos():
+            if (newx, newy) == self.monster.getPos() and not self.monster.dead:
                 self.monster.loseHP(1)
             elif self.map[newy][newx] != '#' and self.map[newy][newx] != ' ':
                 self.player.setPos(newx, newy)
