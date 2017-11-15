@@ -101,6 +101,8 @@ class Env(object):
                 if (newx, newy) == m.getPos():
                     m.loseHP(1)
                     self.player.setPos(x, y)
+                if m.dead:
+                    self.loots.append(Loot(self, newx, newy))
 
     def getRandPos(self):
         x = 0
