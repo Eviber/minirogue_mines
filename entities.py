@@ -21,23 +21,20 @@ class Monster(Entity):
 
     def followPlayer(self, player):
         (playerX, playerY) = player.getPos()
+        
 
-        # deplacement du monstre
-        moveX = 0
-        moveY = 0
+        # deplacement du monstre selon x ou y
+        if playerX != self.x:
+            if playerX > self.x:
+                self.x += 1
+            else:
+                self.x -= 1
+        else:
+            if playerY > self.y:
+                self.y += 1
+            else:
+                self.y -= 1
 
-        if playerX < self.x:
-            moveX = -1
-        elif playerX > self.x:
-            moveX = 1
-
-        if playerY < self.y:
-            moveY = -1
-        elif playerY > self.y:
-            moveY = 1
-
-        self.x += moveX
-        self.y += moveY
 
     def die(self):
         self.dead = True
