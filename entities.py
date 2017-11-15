@@ -2,6 +2,13 @@ class Entity(object):
     def display(self, stdscr):
         stdscr.addch(self.y, self.x, self.char)
 
+    def getPos(self):
+        return (self.x, self.y)
+
+    def setPos(self, x, y):
+        self.x = x
+        self.y = y
+
     def loseHP(self, n):
         self.hp -= n
         if self.hp <= 0:
@@ -21,7 +28,7 @@ class Monster(Entity):
 
     def followPlayer(self, player):
         (playerX, playerY) = player.getPos()
-        
+
 
         # deplacement du monstre selon x ou y
         if playerX != self.x:
@@ -58,10 +65,3 @@ class Player(Entity):
 
     def moveDown(self):
         self.y += 1
-
-    def getPos(self):
-        return (self.x, self.y)
-
-    def setPos(self, x, y):
-        self.x = x
-        self.y = y
