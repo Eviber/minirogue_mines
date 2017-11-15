@@ -58,10 +58,12 @@ def doturn(env):
     pass
 
 def getinput(env, c):
-    action = {curses.KEY_UP : player.moveUp(),
-              curses.KEY_DOWN : player.moveDown(),
-              curses.KEY_LEFT : player.moveLeft(),
-              curses.KEY_RIGHT : player.moveRight()}
+    action = {curses.KEY_UP : env.player.moveUp,
+              curses.KEY_DOWN : env.player.moveDown,
+              curses.KEY_LEFT : env.player.moveLeft,
+              curses.KEY_RIGHT : env.player.moveRight}
+    if c in action:
+        action[c]()
 
 
 def main(stdscr):
@@ -73,7 +75,7 @@ def main(stdscr):
     env.display()
     while c != ord('q') :
         c = stdscr.getch()
-        #getinput()
+        getinput(env, c)
         env.display()
 
 if __name__ == "__main__":
