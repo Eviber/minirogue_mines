@@ -29,18 +29,26 @@ class Monster(Entity):
     def followPlayer(self, player):
         (playerX, playerY) = player.getPos()
 
+        deltaX = abs(playerX - self.x)
+        deltaY = abs(playerY - self.y)
 
-        # deplacement du monstre selon x ou y
-        if playerX != self.x:
-            if playerX > self.x:
-                self.x += 1
-            else:
-                self.x -= 1
+        if max(deltaX, deltaY) <= 1:
+            # si le monstre colle le joueur, il le tape
+            player.loseHP(1)
         else:
-            if playerY > self.y:
-                self.y += 1
+            # deplacement du monstre selon x ou y
+            if deltaX > deltaY:
+                # si le joueur est plus eloigne sur l'axe y, il se rapproche
+                # d'abord dans cette direction
+                if playerX > self.x:
+                    self.x += 1
+                else:
+                    self.x -= 1
             else:
-                self.y -= 1
+                if playerY > self.y:
+                    self.y += 1
+                else:
+                    self.y -= 1
 
 
     def die(self):
