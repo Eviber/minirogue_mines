@@ -54,6 +54,10 @@ class Env(object):
         if self.monster.dead == False:
             self.monster.display(self.scr)
 
+        # affiche les infos sur le jeu
+        n = len(self.map)
+        self.scr.addstr(n, 0, '\n\n HP : ' + str(self.player.hp) + ', gold : ' + str(self.player.gold))
+
     def checkInput(self, c):
         action = [curses.KEY_UP,
                   curses.KEY_DOWN,

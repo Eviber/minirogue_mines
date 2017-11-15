@@ -62,10 +62,11 @@ class Monster(Entity):
 
 class Player(Entity):
     def __init__(self):
+        self.char = '@'
         self.x = 5
         self.y = 5
         self.hp = 15
-        self.char = '@'
+        self.gold = 0
 
     def moveRight(self):
         self.x += 1
