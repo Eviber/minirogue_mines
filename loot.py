@@ -9,5 +9,7 @@ class Loot(Entity):
             self.x, self.y = env.getRandPos()
         self.char = '*'
         self.value = randint(1, 50)
+        self.exists = True
+
     def getValue(self):
         return self.value

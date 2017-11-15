@@ -1,5 +1,6 @@
 import curses
 from entities import *
+from loot import *
 from random import random, randint
 
 class Env(object):
@@ -37,9 +38,14 @@ class Env(object):
         self.scr = stdscr
         self.player = Player()
         self.monsters = []
+        self.loots = []
+        maxloot = randint(3, 6)
+        for i in range(maxloot):
+            self.loots.append(Loot(self))
 
 
     def finishTurn(self):
+        self.loots = [l for l in self.loots if l.exists]
         self.monsters = [m for m in self.monsters if not m.dead]
         for m in self.monsters:
             m.followPlayer(self)
@@ -55,6 +61,10 @@ class Env(object):
         # affiche la map
         for line in self.map:
             self.scr.addstr(line + '\n')
+
+        # affiche les loots
+        for l in self.loots:
+            l.display(self.scr)
 
         # affiche le joueur et les ennemis
         self.player.display(self.scr)
@@ -83,6 +93,10 @@ class Env(object):
                 newx += 1
             if self.map[newy][newx] != '#' and self.map[newy][newx] != ' ':
                 self.player.setPos(newx, newy)
+            for l in self.loots:
+                if (newx, newy) == l.getPos():
+                    self.player.gold += l.value
+                    l.exists = False
             for m in self.monsters:
                 if (newx, newy) == m.getPos():
                     m.loseHP(1)
