@@ -31,3 +31,22 @@ class Env(object):
         # affiche le joueur et les ennemis
         self.player.display(self.scr)
         self.monster.display(self.scr)
+
+    def checkInput(self, c):
+        action = {curses.KEY_UP : env.player.moveUp,
+                  curses.KEY_DOWN : env.player.moveDown,
+                  curses.KEY_LEFT : env.player.moveLeft,
+                  curses.KEY_RIGHT : env.player.moveRight}
+        if c in action:
+            x, y = self.player.getPos()
+            newx, newy = x, y
+            if c == curses.KEY_UP:
+                newy -= 1
+            elif c == curses.KEY_DOWN:
+                newy += 1
+            elif c == curses.KEY_LEFT:
+                newx -= 1
+            elif c == curses.KEY_RIGHT:
+                newx += 1
+            if self.map[newy][newx] != '#':
+                self.player.setPos(newx, newy)
