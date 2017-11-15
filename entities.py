@@ -2,9 +2,18 @@ class Entity(object):
     def display(self, stdscr):
         stdscr.addch(self.y, self.x, self.char)
 
-class Monster(Entity):
+    def loseHP(self, n):
+        self.hp -= n
+        if self.hp <= 0:
+            self.die()
 
+    def die(self):
+        pass
+
+
+class Monster(Entity):
     def __init__(self, x, y):
+        self.dead = False
         self.x = x
         self.y = y
         self.char = 'M'
@@ -29,6 +38,8 @@ class Monster(Entity):
         self.x += moveX
         self.y += moveY
 
+    def die(self):
+        self.dead = True
 
 
 class Player(Entity):
