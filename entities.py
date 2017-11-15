@@ -15,7 +15,8 @@ class Entity(object):
             self.die()
 
     def die(self):
-        pass
+        self.dead = True
+
 
 
 class Monster(Entity):
@@ -56,26 +57,11 @@ class Monster(Entity):
                 self.setPos(x, y)
 
 
-    def die(self):
-        self.dead = True
-
-
 class Player(Entity):
     def __init__(self):
         self.char = '@'
+        self.dead = False
         self.x = 5
         self.y = 5
         self.hp = 15
         self.gold = 0
-
-    def moveRight(self):
-        self.x += 1
-
-    def moveLeft(self):
-        self.x -= 1
-
-    def moveUp(self):
-        self.y -= 1
-
-    def moveDown(self):
-        self.y += 1
