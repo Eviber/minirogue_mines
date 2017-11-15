@@ -32,8 +32,8 @@ class Monster(Entity):
         deltaX = abs(playerX - self.x)
         deltaY = abs(playerY - self.y)
 
-        if max(deltaX, deltaY) <= 1:
-            # si le monstre colle le joueur, il le tape
+        if min(deltaX, deltaY) == 0 and max(deltaX, deltaY) <= 1:
+            # si le monstre est cote a cote avec le joueur, il le tape
             player.loseHP(1)
         else:
             # deplacement du monstre selon x ou y
