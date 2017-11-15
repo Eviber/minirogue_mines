@@ -70,5 +70,7 @@ class Env(object):
                 newx -= 1
             elif c == curses.KEY_RIGHT:
                 newx += 1
-            if self.map[newy][newx] != '#' and self.map[newy][newx] != ' ':
+            if (newx, newy) == self.monster.getPos():
+                self.monster.loseHP(1)
+            elif self.map[newy][newx] != '#' and self.map[newy][newx] != ' ':
                 self.player.setPos(newx, newy)
