@@ -1,5 +1,6 @@
 import curses
 from entities import *
+from random import random, randint
 
 class Env(object):
 
@@ -35,12 +36,18 @@ class Env(object):
                     ]
         self.scr = stdscr
         self.player = Player()
-        self.monster = Monster(1, 1, 2)
+        self.monsters = []
 
 
     def finishTurn(self):
-        if self.monster.dead == False:
-            self.monster.followPlayer(self)
+        self.monsters = [m for m in self.monsters if not m.dead]
+        for m in self.monsters:
+            m.followPlayer(self)
+
+        if len(self.monsters) < 5 and random() < 0.1:
+            (x, y) = self.getRandPos()
+            self.monsters.append(Monster(x, y, randint(1,3)))
+
 
     def display(self):
         self.scr.erase()
@@ -51,8 +58,8 @@ class Env(object):
 
         # affiche le joueur et les ennemis
         self.player.display(self.scr)
-        if self.monster.dead == False:
-            self.monster.display(self.scr)
+        for m in self.monsters:
+            m.display(self.scr)
 
         # affiche les infos sur le jeu
         n = len(self.map)
@@ -74,15 +81,19 @@ class Env(object):
                 newx -= 1
             elif c == curses.KEY_RIGHT:
                 newx += 1
-            if (newx, newy) == self.monster.getPos() and not self.monster.dead:
-                self.monster.loseHP(1)
-            elif self.map[newy][newx] != '#' and self.map[newy][newx] != ' ':
+            if self.map[newy][newx] != '#' and self.map[newy][newx] != ' ':
                 self.player.setPos(newx, newy)
+            for m in self.monsters:
+                if (newx, newy) == m.getPos():
+                    m.loseHP(1)
+                    self.player.setPos(x, y)
 
     def getRandPos(self):
-        x = -1
-        y = -1
+        x = 0
+        y = 0
+        cols = len(self.map[0])
+        lines = len(self.map)
         while (x, y) == self.player.getPos() or self.map[y][x] != '.':
-            x = randint(0, curses.COLS)
-            y = randint(0, curses.LINES)
+            x = randint(0, cols-1)
+            y = randint(0, lines-1)
         return (x, y)
