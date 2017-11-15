@@ -1,14 +1,35 @@
-from env import *
-
 class Entity(object):
     def display(self, stdscr):
         stdscr.addch(self.y, self.x, self.char)
 
 class Monster(Entity):
-     def __init__(self, x, y):
+
+    def __init__(self, x, y):
         self.x = x
         self.y = y
         self.char = 'M'
+
+    def followPlayer(self, player):
+        (playerX, playerY) = player.getPos()
+
+        # deplacement du monstre
+        moveX = 0
+        moveY = 0
+
+        if playerX < self.x:
+            moveX = -1
+        elif playerX > self.x:
+            moveX = 1
+
+        if playerY < self.y:
+            moveY = -1
+        elif playerY > self.y:
+            moveY = 1
+
+        self.x += moveX
+        self.y += moveY
+
+
 
 class Player(Entity):
     def __init__(self):
@@ -20,9 +41,6 @@ class Player(Entity):
     def moveRight(self):
         self.x += 1
 
-    def getX(self):
-        return self.x
-
     def moveLeft(self):
         self.x -= 1
 
@@ -31,3 +49,6 @@ class Player(Entity):
 
     def moveDown(self):
         self.y += 1
+
+    def getPos(self):
+        return (self.x, self.y)
