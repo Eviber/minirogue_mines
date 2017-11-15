@@ -78,3 +78,11 @@ class Env(object):
                 self.monster.loseHP(1)
             elif self.map[newy][newx] != '#' and self.map[newy][newx] != ' ':
                 self.player.setPos(newx, newy)
+
+    def getRandPos(self):
+        x = -1
+        y = -1
+        while (x, y) == self.player.getPos() or self.map[y][x] != '.':
+            x = randint(0, curses.COLS)
+            y = randint(0, curses.LINES)
+        return (x, y)
