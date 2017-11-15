@@ -20,9 +20,6 @@ class Player(Entity):
     def moveRight(self):
         self.x += 1
 
-    def getX(self):
-        return self.x
-
     def moveLeft(self):
         self.x -= 1
 
@@ -31,3 +28,6 @@ class Player(Entity):
 
     def moveDown(self):
         self.y += 1
+
+    def getPos(self):
+        return (self.x, self.y)
