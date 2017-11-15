@@ -1,3 +1,4 @@
+import curses
 from entities import *
 
 class Env(object):
@@ -33,10 +34,10 @@ class Env(object):
         self.monster.display(self.scr)
 
     def checkInput(self, c):
-        action = {curses.KEY_UP : env.player.moveUp,
-                  curses.KEY_DOWN : env.player.moveDown,
-                  curses.KEY_LEFT : env.player.moveLeft,
-                  curses.KEY_RIGHT : env.player.moveRight}
+        action = [curses.KEY_UP,
+                  curses.KEY_DOWN,
+                  curses.KEY_LEFT,
+                  curses.KEY_RIGHT]
         if c in action:
             x, y = self.player.getPos()
             newx, newy = x, y

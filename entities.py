@@ -52,3 +52,7 @@ class Player(Entity):
 
     def getPos(self):
         return (self.x, self.y)
+
+    def setPos(self, x, y):
+        self.x = x
+        self.y = y

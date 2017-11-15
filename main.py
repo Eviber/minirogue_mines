@@ -14,7 +14,7 @@ def main(stdscr):
     while c != ord('q') :
         # fait jouer le joueur
         c = stdscr.getch()
-        getinput(env, c)
+        env.checkInput(c)
 
         # fait jouer les monstres
         env.finishTurn()
